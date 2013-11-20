@@ -3,16 +3,16 @@
 This is the python project, done as a part of Parallel Computing Course.
 </p>
 <h2>OpenMP</h2>
-<hr/>
+<p>
 OpenMP (Open Multi-Processing) is an API that supports multi-platform shared memory multiprocessing programming in C,
 C++, and Fortran, on most processor architectures and operating systems, including Solaris, AIX, HP-UX, GNU/Linux,
 Mac OS X, and Windows platforms. 
 
 It consists of a set of compiler directives, library routines, and environment variables 
 that influence run-time behavior.
-
+</p>
 <h2>PyOpenMP</h2>
-<hr/>
+<p>
 The project is about the implementation of the OpenMP Application Programming Interface for Python. 
 OpenMP enables the programmer to extend the sequentialprogramming model, to enable parallelism by providing
 various Single Instruction Multiple Data(SIMD) constructs, synchronisation and the work sharing constructs. It also
@@ -23,17 +23,18 @@ Decorators and the multiprocessing module of python are used to achieve this.The
 various constructs like <b>@OMPParallel</b> and <b>@OMPFor</b> for the creation of multiple processes to 
 execute a piece of Python code. It also attempts to provide various synchronisation directives like <b>@OMPMaster</b>
 and <b>@OMPSingle</b> and various data sharing attribute clauses like <b>private, ﬁrstprivate, and shared</b>.
-
+</p>
 <h2>Implementation provided for </h2>
-<hr/>
+<p>
   <ul>
 				   <li> parallel directive : <b>OMPParallel</b></li>
 					 <li> for directive : <b>OMPFor</b></li>
 					 <li> single directive : <b>OMPSingle</b></li>
 					 <li> master directive : <b>OMPMaster</b></li>
 					 <li> clauses : <b>private, firstprivate, shared (partial)</b></li>
-	</ul>
-<h2> directives explained </h2>
+  </ul>
+</p>
+<h2>Directives explained</h2>
 <ul>
   <li><h3>OMPParallel</h3>
     <ul>
@@ -73,7 +74,7 @@ and <b>@OMPSingle</b> and various data sharing attribute clauses like <b>private
     </ul>
   </li>
 </ul>
-<h2> External libraries used </h2>
+<h2>External libraries used</h2>
 <hr/>
 <ul>
   <li><a href="http://docs.python.org/2/library/multiprocessing.html">multiprocessing</a></li>
