@@ -1,4 +1,4 @@
-<h1>Python implementation of the Open MP</h2>
+<h1>Python implementation of the OpenMP</h2>
 <p>
 This is the python project, done as a part of Parallel Computing Course.
 </p>
