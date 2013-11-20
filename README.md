@@ -22,16 +22,16 @@ PyOpenMP is an attempt to enable developers using Python, to achieve parallelism
 Decorators and the multiprocessing module of python are used to achieve this.The project attempts to provide 
 various constructs like <b>@OMPParallel</b> and <b>@OMPFor</b> for the creation of multiple processes to 
 execute a piece of Python code. It also attempts to provide various synchronisation directives like <b>@OMPMaster</b>
-and <b>@OMPSingle</b> and various data sharing attribute clauses like private, ﬁrstprivate, and shared.
+and <b>@OMPSingle</b> and various data sharing attribute clauses like <b>private, ﬁrstprivate, and shared</b>.
 
-<h4>Implementation provided for </h4>
+<h2>Implementation provided for </h2>
 <hr/>
   <ul>
 				   <li> parallel directive : <b>OMPParallel</b></li>
 					 <li> for directive : <b>OMPFor</b></li>
-					 <li> single directive - <b>OMPSingle</b></li>
-					 <li> master directive - <b>OMPMaster</b></li>
-					 <li> clauses - <b>private, firstprivate, shared (partial)</b></li>
+					 <li> single directive : <b>OMPSingle</b></li>
+					 <li> master directive : <b>OMPMaster</b></li>
+					 <li> clauses : <b>private, firstprivate, shared (partial)</b></li>
 	</ul>
 <h2> directives explained </h2>
 <ul>
