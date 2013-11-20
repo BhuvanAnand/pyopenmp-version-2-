@@ -1,24 +1,18 @@
 import time
 import random
-def fill_list(size):
-	arr = []
-	for i in range(size):
-		arr.append([])
-		for j in range(size):
-			arr[i].append(j)
-
-	return arr
-	
-def print_list(a):
-	print "["
-	for i in a:
-		print "\t" + str(i) + ","
-	print "]"
+import sys
 
 def main():
-	a = fill_list(500)
-	b = fill_list(500)
-	c = fill_list(500)
+	size = int(sys.argv[1])
+
+	a = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
+	b = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
+	c = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
+	
+	print a
+
+	print b
+
 
 	for i in range(len(a)):
 		for j in range(len(b)):
@@ -27,6 +21,7 @@ def main():
 				sum = sum + a[i][k] * b[k][j]
 			c[i][j] = sum
 
+	print c
 if __name__ == '__main__':
 	start = time.time()
 	main()

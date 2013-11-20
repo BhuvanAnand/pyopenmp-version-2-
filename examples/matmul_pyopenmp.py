@@ -4,26 +4,12 @@ import random
 sys.path.insert(0, '../')
 from src.pyomp import * 
 
-def fill_list(size):
-	arr = []
-	for i in range(size):
-		arr.append([])
-		for j in range(size):
-			arr[i].append(j)
-
-	return arr
-	
-def print_list(a):
-	print "["
-	for i in a:
-		print "\t" + str(i)
-	print "]"
-
 def main():
-
-	a = fill_list(500)
-	b = fill_list(500)
-	c = fill_list(500)
+	size = int(sys.argv[1])
+	
+	a = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
+	b = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
+	c = [[random.randint(0, 100) for j in range(size)] for i in range(size)]
 
 	#create a team of processes
 	@OMPParallel(numprocs=4)

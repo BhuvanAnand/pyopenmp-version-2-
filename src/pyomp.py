@@ -5,7 +5,7 @@ from clauses import *
 
 class OMPParallel(object):
 	"""implemantation for parallel directive - OMPParallel"""
-	def __init__(self, numprocs = None, condition = True, private = None, shared = None, firstprivate = None):
+	def __init__(self, numprocs = 4, condition = True, private = None, shared = None, firstprivate = None):
 		super(OMPParallel, self).__init__()
 		self.numprocs = numprocs
 		self.private = private
@@ -24,10 +24,16 @@ class OMPParallel(object):
 			else:
 				# condition is true, create team of processes
 				if self.private: 
-					self.private = ClausePrivate(self.private).make_junk()
+					self.private = ClausePrivate(self.private).make_junk()					
+				shared_object = ClauseShared(self.shared,kwargs)
+				kwargs = shared_object.createShared()
 				OMPParallel.pool = OMPPool(numprocs = self.numprocs, target = target, args = args, kwargs = kwargs)
 				OMPParallel.pool.start()
 				OMPParallel.pool.join()
+				shared_object.copyBack()
+
+
+
 		return functools.wraps(target) (wrapper)
 
 	@classmethod
@@ -91,7 +97,7 @@ class OMPFor(object):
 
 class OMPMaster(object):
 
-	def __init__(self,args=tuple(),kwargs = tuple()):
+	def __init__(self,args=tuple(),kwargs = dict()):
 		self.__args = args
 		self.__kwargs = kwargs
 		self.procId = kwargs["procId"]
@@ -106,7 +112,7 @@ class OMPMaster(object):
 		return wrapper
 
 class OMPSingle(OMPParallel):
-	def __init__(self,args=tuple(),kwargs= tuple()):
+	def __init__(self,args=tuple(),kwargs= dict()):
 		self.__args = args
 		self.__kwargs = kwargs
 		self.__procId = kwargs["procId"]
@@ -114,7 +120,7 @@ class OMPSingle(OMPParallel):
 		self.__randomProcessNumber = kwargs["randomProcessNumber"]
 		self.__pool = OMPParallel.returnPool()
 		self.__eventForSingleExecution = kwargs["eventForSingleExecution"]
-		self.__eventForSingleEncounter = kwargs["eventForSingleEncounter"]		
+		self.__eventForSingleEncounter = kwargs["eventForSingleEncounter"]
 
 	def __call__(self, function):
 		def wrapper(*args, **kwargs):
@@ -130,39 +136,3 @@ class OMPSingle(OMPParallel):
 				self.__pool.getProcessForID(self.__procId).wait(self.__eventForSingleExecution)
 			
 		return wrapper
-
-	
-
-if __name__ == '__main__':
-	list_ = list(range(1, 3, 1))
-	private_dict = {"m":1,"n":2}
-	# @OMPParallel(numprocs =2,private= private_dict)
-	# def parallel_block(*args,**kwargs):
-	# 	print "hello world"
-	# 	@OMPSingle(args = args, kwargs = kwargs)
-	# 	def single_block(*args,**kwargs):
-	# 		print "inside single block", kwargs["procId"]
-	# 	single_block()
-	# 	print "After single block: ",kwargs["procId"]
-		
-	# 	@OMPSingle(args=args,kwargs=kwargs)
-	# 	def single_block2(*args,**kwargs):
-	# 		print "inside the single block 2: ",kwargs["procId"]
-	# 	single_block2()
-	# 	print "after the single block 2: ",kwargs["procId"]
-
-	# parallel_block()
-
-	@OMPParallel(numprocs=4)
-	def foo(*args,**kwargs):
-		res = list(range(2))
-
-		@OMPFor(args= args, kwargs=kwargs)
-		def for_block(a,*args,**kwargs):
-			for i in range(kwargs["start"], kwargs["end"]):
-				res[i] = a[i] ** 2
-				print "processId: " + str(kwargs["procId"]) + "\ta: " + str(a[i]) + "\tres: " + str(res[i]) 
-		
-		for_block(list_)
-		
-	foo()	
