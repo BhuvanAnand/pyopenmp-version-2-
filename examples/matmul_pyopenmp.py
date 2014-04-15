@@ -2,7 +2,7 @@ import sys
 import time
 import random
 sys.path.insert(0, '../')
-from src.pyomp import * 
+from pyopenmp.pyomp import *
 
 def main():
 	size = int(sys.argv[1])

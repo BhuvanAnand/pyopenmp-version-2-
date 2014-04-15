@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, "../")
-from pyomp import *
-from clauses import *
+from pyopenmp.pyomp import *
+from pyopenmp.clauses import *
 
 def main():
 
