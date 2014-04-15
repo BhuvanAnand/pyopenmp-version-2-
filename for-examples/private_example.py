@@ -1,18 +1,20 @@
 import sys
+
 sys.path.insert(0, "../")
 from pyopenmp.pyomp import *
 from pyopenmp.clauses import *
 
+
 def main():
+    private_dict = {"a": 1, "b": 2}
 
-	private_dict = {"a":1,"b":2}
+    @OMPParallel(numprocs=4, private=private_dict)
+    def parallel_block(*args, **kwargs):
+        private_dict["a"] = 0
+        print str(private_dict) + ": " + str(kwargs["procId"])
 
-	@OMPParallel(numprocs = 4,private=private_dict)
-	def parallel_block(*args,**kwargs):
-		private_dict["a"] = 0
-		print str(private_dict) + ": " + str(kwargs["procId"])
-	parallel_block()
+    parallel_block()
 
 
 if __name__ == '__main__':
-	main()
+    main()
